@@ -28,10 +28,15 @@ JS_ENGINE := v8
 -include vendor/htc/dream_sapphire/BoardConfigVendor.mk
 
 TARGET_BOARD_PLATFORM := msm7k
-TARGET_CPU_ABI := armeabi
-TARGET_ARCH_VARIANT := armv6j
 
 TARGET_NO_BOOTLOADER := true
+
+TARGET_BOOTLOADER_BOARD_NAME := sapphire
+TARGET_OTA_ASSERT_DEVICE := trout,sapphire
+
+# ARMv6-compatible processor rev 2 (v6l)
+TARGET_CPU_ABI := armeabi
+TARGET_ARCH_VARIANT := armv6j
 
 # Wifi related defines
 BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
@@ -42,8 +47,11 @@ WIFI_DRIVER_MODULE_ARG      := ""
 WIFI_DRIVER_MODULE_NAME     := "wlan"
 WIFI_FIRMWARE_LOADER        := "wlan_loader"
 
-BOARD_KERNEL_BASE := 0x02000000
+# Kernel stuff
+#LOCAL_KERNEL := device/htc/dream_sapphire/kernel
+TARGET_PREBUILT_KERNEL := device/htc/dream_sapphire/kernel
 BOARD_KERNEL_CMDLINE := no_console_suspend=1 console=null
+BOARD_KERNEL_BASE := 0x02000000
 
 #libsurfaceflinger to avoid Draw Texture Extenstion
 BOARD_AVOID_DRAW_TEXTURE_EXTENSION := true
@@ -54,11 +62,8 @@ BOARD_VENDOR_USE_AKMD := akm8976
 
 BOARD_VENDOR_QCOM_AMSS_VERSION := 6220
 
-# The size of a block that can be marked bad.
-BOARD_FLASH_BLOCK_SIZE := 131072
-
 # OpenGL drivers config file path
-BOARD_EGL_CFG := device/htc/dream_sapphire/egl.cfg
+BOARD_EGL_CFG := device/htc/dream_sapphire/prebuilt/egl.cfg
 
 BOARD_USES_QCOM_LIBS := true
 
@@ -74,11 +79,11 @@ BOARD_USE_KINETO_COMPATIBILITY := true
 
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 
-TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
+# Use the audio profile hack
+WITH_DS_HTCACOUSTIC_HACK := true
 
-TARGET_BOOTLOADER_BOARD_NAME := sapphire
-TARGET_OTA_ASSERT_DEVICE := trout,sapphire
-PRODUCT_BUILD_PROP_OVERRIDES += TARGET_BOOTLOADER_BOARD_NAME=sapphire
+# Release tools
+TARGET_RELEASETOOLS_EXTENSIONS := device/htc/common
 
 # # cat /proc/mtd
 # dev:    size   erasesize  name
@@ -93,6 +98,5 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00500000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x05a00000
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x127c0000
 
-#TARGET_RECOVERY_UI_LIB := librecovery_ui_sapphire librecovery_ui_htc
-TARGET_PREBUILT_KERNEL := device/htc/dream_sapphire/kernel
-LOCAL_KERNEL := device/htc/dream_sapphire/kernel
+# The size of a block that can be marked bad.
+BOARD_FLASH_BLOCK_SIZE := 131072

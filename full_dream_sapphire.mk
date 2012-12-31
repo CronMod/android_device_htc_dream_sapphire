@@ -18,27 +18,39 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/small_base.mk)
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
+# Dream/Sapphire overlays
 DEVICE_PACKAGE_OVERLAYS := device/htc/dream_sapphire/overlay
 
+# Dream/Sapphire uses MDPI
+PRODUCT_LOCALES += mdpi
+
+# fstab
+PRODUCT_COPY_FILES += \
+    device/htc/dream_sapphire/prebuilt/vold.fstab:system/etc/vold.fstab
+
+# Call proprietary side of the device
+$(call inherit-product-if-exists, vendor/htc/dream_sapphire/dream_sapphire-vendor.mk)
+
+# Packages
 PRODUCT_PACKAGES += \
     VoiceDialer \
     sensors.trout \
     sensors.sapphire \
-	sapphire-keypad.kcm \
-	trout-keypad.kcm \
-	trout-keypad-v2.kcm \
-	trout-keypad-v3.kcm \
-	trout-keypad-qwertz.kcm \
-	wlan.ko \
-	vold.fstab \
-	wlan_loader \
-	tiwlan.ini \
-	libOmxCore \
-	gps.trout \
-	gps.sapphire \
-	copybit.msm7k \
-	gralloc.msm7k \
-	lights.msm7k
+    sapphire-keypad.kcm \
+    trout-keypad.kcm \
+    trout-keypad-v2.kcm \
+    trout-keypad-v3.kcm \
+    trout-keypad-qwertz.kcm \
+    wlan.ko \
+    vold.fstab \
+    wlan_loader \
+    tiwlan.ini \
+    libOmxCore \
+    gps.trout \
+    gps.sapphire \
+    copybit.msm7k \
+    gralloc.msm7k \
+    lights.msm7k
 
 # Install the features available on this device.
 PRODUCT_COPY_FILES += \
@@ -49,85 +61,57 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml
 
-# Prebuilt stuff
+# Ramdisk
 PRODUCT_COPY_FILES += \
     device/htc/dream_sapphire/prebuilt/init.trout.rc:root/init.trout.rc \
     device/htc/dream_sapphire/prebuilt/init.sapphire.rc:root/init.sapphire.rc \
-    device/htc/dream_sapphire/prebuilt/build.trout.prop:system/build.trout.prop \
-    device/htc/dream_sapphire/prebuilt/build.sapphire.prop:system/build.sapphire.prop \
     device/htc/dream_sapphire/prebuilt/ueventd.trout.rc:root/ueventd.trout.rc \
-    device/htc/dream_sapphire/prebuilt/ueventd.sapphire.rc:root/ueventd.sapphire.rc \
-    device/htc/dream_sapphire/prebuilt/vold.fstab:system/etc/vold.fstab
+    device/htc/dream_sapphire/prebuilt/ueventd.sapphire.rc:root/ueventd.sapphire.rc
 
-# Keylayout / Headset
+# Device props
 PRODUCT_COPY_FILES += \
-    device/htc/dream_sapphire/keylayout/trout-keypad.kl:system/usr/keylayout/trout-keypad.kl \
-    device/htc/dream_sapphire/keylayout/trout-keypad-qwertz.kl:system/usr/keylayout/trout-keypad-qwertz.kl \
-    device/htc/dream_sapphire/keylayout/trout-keypad-v2.kl:system/usr/keylayout/trout-keypad-v2.kl \
-    device/htc/dream_sapphire/keylayout/trout-keypad-v3.kl:system/usr/keylayout/trout-keypad-v3.kl \
-    device/htc/dream_sapphire/keylayout/sapphire-keypad.kl:system/usr/keylayout/sapphire-keypad.kl \
-    device/htc/dream_sapphire/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl
+    device/htc/dream_sapphire/prebuilt/build.trout.prop:system/build.trout.prop \
+    device/htc/dream_sapphire/prebuilt/build.sapphire.prop:system/build.sapphire.prop
 
-PRODUCT_PROPERTY_OVERRIDES := \
-    keyguard.no_require_sim=true \
-    ro.ril.hsxpa=2 \
-    ro.ril.gprsclass=10 \
-    ro.media.dec.jpeg.memcap=10000000 \
-    ro.com.google.clientidbase=android-tmobile-us \
-    ro.com.google.clientidbase.vs=android-hms-tmobile-us \
-    ro.com.google.clientidbase.ms=android-hms-tmobile-us \
-    ro.com.google.locationfeatures=1 \
-    ro.com.google.networklocation=1 \
-    ro.setupwizard.enable_bypass=1 \
-    ro.media.dec.aud.wma.enabled=1 \
-    ro.media.dec.vid.wmv.enabled=1
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    rild.libpath=/system/lib/libhtc_ril.so \
-    wifi.interface=tiwlan0
-
-# Time between scans in seconds. Keep it high to minimize battery drain.
-# This only affects the case in which there are remembered access points,
-# but none are in range.
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.supplicant_scan_interval=15
-
-# density in DPI of the LCD of this board. This is used to scale the UI
-# appropriately. If this property is not defined, the default value is 160 dpi. 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=160
-
-# Default network type
-# 0 => WCDMA Preferred.
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.default_network=0
-
-# Disable JIT by default
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.execution-mode=int:fast
-
-# The OpenGL ES API level that is natively supported by this device.
-# This is a 16.16 fixed point number
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=65536
-
-# media configuration xml file
+# Keylayouts
 PRODUCT_COPY_FILES += \
-    device/htc/dream_sapphire/media_profiles.xml:/system/etc/media_profiles.xml
+    device/htc/dream_sapphire/prebuilt/keylayouts/trout-keypad.kl:system/usr/keylayout/trout-keypad.kl \
+    device/htc/dream_sapphire/prebuilt/keylayouts/trout-keypad-qwertz.kl:system/usr/keylayout/trout-keypad-qwertz.kl \
+    device/htc/dream_sapphire/prebuilt/keylayouts/trout-keypad-v2.kl:system/usr/keylayout/trout-keypad-v2.kl \
+    device/htc/dream_sapphire/prebuilt/keylayouts/trout-keypad-v3.kl:system/usr/keylayout/trout-keypad-v3.kl \
+    device/htc/dream_sapphire/prebuilt/keylayouts/sapphire-keypad.kl:system/usr/keylayout/sapphire-keypad.kl \
+    device/htc/dream_sapphire/prebuilt/keylayouts/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl
+
+# Keychars
+PRODUCT_COPY_FILES += \
+    device/htc/dream_sapphire/prebuilt/keychars/trout-keypad.kcm:system/usr/keychars/trout-keypad.kcm \
+    device/htc/dream_sapphire/prebuilt/keychars/trout-keypad-qwertz.kcm:system/usr/keychars/trout-keypad-qwertz.kcm \
+    device/htc/dream_sapphire/prebuilt/keychars/trout-keypad-v2.kcm:system/usr/keychars/trout-keypad-v2.kcm \
+    device/htc/dream_sapphire/prebuilt/keychars/trout-keypad-v3.kcm:system/usr/keychars/trout-keypad-v3.kcm \
+    device/htc/dream_sapphire/prebuilt/keychars/sapphire-keypad.kcm:system/usr/keychars/sapphire-keypad.kcm
+
+# Audio configuration
+PRODUCT_COPY_FILES += \
+    device/htc/dream_sapphire/prebuilt/audio/02audio_profile:system/etc/init.d/02audio_profile \
+    device/htc/dream_sapphire/prebuilt/audio/AudioPara_dream.csv:system/etc/AudioPara_dream.csv \
+    device/htc/dream_sapphire/prebuilt/audio/AudioPara_sapphire.csv:system/etc/AudioPara_sapphire.csv
+
+# Media configuration
+PRODUCT_COPY_FILES += \
+    device/htc/dream_sapphire/prebuilt/media_profiles.xml:/system/etc/media_profiles.xml
 
 # Kernel stuff
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := device/htc/dream_sapphire/kernel
+	LOCAL_KERNEL := device/htc/dream_sapphire/prebuilt/kernel/kernel
 else
 	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel \
-    device/htc/dream_sapphire/prebuilt/wlan.ko:/system/lib/modules/wlan.ko \
+    $(LOCAL_KERNEL):kernel
 
-## (2) Also get non-open-source aspects if available
-$(call inherit-product-if-exists, vendor/htc/dream_sapphire/dream_sapphire-vendor.mk)
+PRODUCT_COPY_FILES += \
+    device/htc/dream_sapphire/prebuilt/kernel/wlan.ko:/system/lib/modules/wlan.ko
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
