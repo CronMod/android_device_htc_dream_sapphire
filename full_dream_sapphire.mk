@@ -26,7 +26,7 @@ PRODUCT_LOCALES += mdpi
 
 # fstab
 PRODUCT_COPY_FILES += \
-    device/htc/dream_sapphire/prebuilt/vold.fstab:system/etc/vold.fstab
+    device/htc/dream_sapphire/prebuilt/fstab/vold.fstab:system/etc/vold.fstab
 
 # Call proprietary side of the device
 $(call inherit-product-if-exists, vendor/htc/dream_sapphire/dream_sapphire-vendor.mk)
@@ -63,15 +63,15 @@ PRODUCT_COPY_FILES += \
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
-    device/htc/dream_sapphire/prebuilt/init.trout.rc:root/init.trout.rc \
-    device/htc/dream_sapphire/prebuilt/init.sapphire.rc:root/init.sapphire.rc \
-    device/htc/dream_sapphire/prebuilt/ueventd.trout.rc:root/ueventd.trout.rc \
-    device/htc/dream_sapphire/prebuilt/ueventd.sapphire.rc:root/ueventd.sapphire.rc
+    device/htc/dream_sapphire/prebuilt/ramdisk/init.trout.rc:root/init.trout.rc \
+    device/htc/dream_sapphire/prebuilt/ramdisk/init.sapphire.rc:root/init.sapphire.rc \
+    device/htc/dream_sapphire/prebuilt/ramdisk/ueventd.trout.rc:root/ueventd.trout.rc \
+    device/htc/dream_sapphire/prebuilt/ramdisk/ueventd.sapphire.rc:root/ueventd.sapphire.rc
 
 # Device props
 PRODUCT_COPY_FILES += \
-    device/htc/dream_sapphire/prebuilt/build.trout.prop:system/build.trout.prop \
-    device/htc/dream_sapphire/prebuilt/build.sapphire.prop:system/build.sapphire.prop
+    device/htc/dream_sapphire/prebuilt/device/build.trout.prop:system/build.trout.prop \
+    device/htc/dream_sapphire/prebuilt/device/build.sapphire.prop:system/build.sapphire.prop
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -98,7 +98,7 @@ PRODUCT_COPY_FILES += \
 
 # Media configuration
 PRODUCT_COPY_FILES += \
-    device/htc/dream_sapphire/prebuilt/media_profiles.xml:/system/etc/media_profiles.xml
+    device/htc/dream_sapphire/prebuilt/media/media_profiles.xml:/system/etc/media_profiles.xml
 
 # Kernel stuff
 ifeq ($(TARGET_PREBUILT_KERNEL),)

@@ -63,7 +63,7 @@ BOARD_VENDOR_USE_AKMD := akm8976
 BOARD_VENDOR_QCOM_AMSS_VERSION := 6220
 
 # OpenGL drivers config file path
-BOARD_EGL_CFG := device/htc/dream_sapphire/prebuilt/egl.cfg
+BOARD_EGL_CFG := device/htc/dream_sapphire/prebuilt/qcom/egl.cfg
 
 BOARD_USES_QCOM_LIBS := true
 
