@@ -14,12 +14,17 @@
 # limitations under the License.
 #
 $(call inherit-product, $(SRC_TARGET_DIR)/product/small_base.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
 
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 # Dream/Sapphire overlays
 DEVICE_PACKAGE_OVERLAYS := device/htc/dream_sapphire/overlay
+
+# Dream/Sapphire build.prop overides
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    TARGET_BOOTLOADER_BOARD_NAME=sapphire
 
 # Dream/Sapphire uses MDPI
 PRODUCT_LOCALES += mdpi
@@ -115,11 +120,3 @@ PRODUCT_COPY_FILES += \
 
 # stuff common to all HTC phones
 $(call inherit-product, device/htc/common/common.mk)
-
-$(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
-
-# Discard inherited values and use our own instead.
-PRODUCT_NAME := full_dream_sapphire
-PRODUCT_DEVICE := dream_sapphire
-PRODUCT_BRAND := Android
-PRODUCT_MODEL := Full Android on Dream/Sapphire

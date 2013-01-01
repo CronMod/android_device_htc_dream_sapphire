@@ -31,7 +31,7 @@ TARGET_BOARD_PLATFORM := msm7k
 
 TARGET_NO_BOOTLOADER := true
 
-TARGET_BOOTLOADER_BOARD_NAME := sapphire
+TARGET_BOOTLOADER_BOARD_NAME := ds
 TARGET_OTA_ASSERT_DEVICE := trout,sapphire
 
 # ARMv6-compatible processor rev 2 (v6l)
@@ -48,8 +48,7 @@ WIFI_DRIVER_MODULE_NAME     := "wlan"
 WIFI_FIRMWARE_LOADER        := "wlan_loader"
 
 # Kernel stuff
-#LOCAL_KERNEL := device/htc/dream_sapphire/kernel
-TARGET_PREBUILT_KERNEL := device/htc/dream_sapphire/kernel
+TARGET_PREBUILT_KERNEL := device/htc/dream_sapphire/kernel/kernel
 BOARD_KERNEL_CMDLINE := no_console_suspend=1 console=null
 BOARD_KERNEL_BASE := 0x02000000
 

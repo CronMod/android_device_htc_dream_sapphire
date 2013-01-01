@@ -11,23 +11,16 @@ ro.ril.disable.power.collapse=0
 ro.telephony.default_network=0
 
 # Google options
-ro.com.google.clientidbase=android-tmobile-us
-ro.com.google.clientidbase.ms=android-hms-tmobile-us
-ro.com.google.clientidbase.vs=android-hms-tmobile-us
 ro.com.google.locationfeatures=1
 ro.com.google.networklocation=1
 
-# Misc options
-keyguard.no_require_sim=true
-ro.setupwizard.enable_bypass=1
-
 # WIFI options
 wifi.interface=tiwlan0
-wifi.supplicant_scan_interval=60 #(needs improvement)
+wifi.supplicant_scan_interval=120
 
 # Windows management
 ro.sf.lcd_density=160
-windowsmgr.max_events_per_sec=60 #(needs improvement)
+windowsmgr.max_events_per_sec=60
 
 # Disable ICS rotation animation, it's too slow
 persist.sys.rotationanimation=false
@@ -37,7 +30,7 @@ ro.opengles.version=65536
 ro.product.multi_touch_enabled=true
 
 # Tweaks
-persist.sys.scrollingcache=2 #(needs improvement)
+persist.sys.scrollingcache=2
 persist.sys.use_dithering=1
 persist.sys.purgeable_assets=1
 ro.compcache.default=26
@@ -46,9 +39,6 @@ ro.compcache.default=26
 ro.media.dec.aud.wma.enabled=1
 ro.media.dec.vid.wmv.enabled=1
 ro.media.dec.jpeg.memcap=8000000
-
-# For SD storage insert notification sound
-persist.service.mount.playsnd=0
 
 # Don't set /proc/sys/vm/dirty_ratio to 0 when USB mounting
 ro.vold.umsdirtyratio=20

@@ -14,7 +14,7 @@
 
 LOCAL_PATH:= $(call my-dir)
 
-ifneq ($(TARGET_SIMULATOR),true)
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),ds)
 
 include $(CLEAR_VARS)
 
